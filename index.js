@@ -6,22 +6,14 @@ function calcAge(date) {
   return Math.abs(new Date(Date.now() - date).getFullYear() - 1970);
 }
 
-function executeSequentially(promises) {
-  return new Promise((resolve, reject) => {
-    const responses = [];
-    return promises
-      .reduce((p, x) => {
-        return p.then(response => {
-          if (response) responses.push(response);
-          return x();
-        });
-      }, Promise.resolve())
-      .then(lastResponse => {
-        if (lastResponse) responses.push(lastResponse);
-        return resolve(responses);
-      })
-      .catch(reject);
-  });
+async function executeSequentially(promises) {
+  const responses = []
+
+  for await (const promise of promises) {
+    responses.push(await promise())
+  }
+
+  return responses
 }
 
 module.exports = {

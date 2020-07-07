@@ -1,7 +1,13 @@
 {
   "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
-    "jest": "20.0.4",
+    "jest": "26.1.0",
     "moment": "2.27.0"
+  },
+  "devDependencies": {
+    "@types/jest": "26.0.4"
   }
 }
