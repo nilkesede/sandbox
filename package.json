@@ -1,0 +1,7 @@
+{
+  "main": "index.js",
+  "dependencies": {
+    "jest": "20.0.4",
+    "moment": "2.27.0"
+  }
+}
