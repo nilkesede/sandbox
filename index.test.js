@@ -1,4 +1,4 @@
-const { isValidName, calcAge, executeSequentially } = require("./index");
+const { isValidName, calcAge, executeSequentially, request } = require("./index");
 
 function asyncTimeout(delay) {
   return () =>
@@ -34,5 +34,21 @@ describe("Execute Promises Sequentially", () => {
     const promises = times.map(asyncTimeout);
 
     return expect(executeSequentially(promises)).resolves.toEqual(times);
+  });
+});
+
+describe("Make a HTTP Request", () => {
+  it("Should execute the request to API", () => {
+    const url = 'https://jsonplaceholder.typicode.com/todos/1'
+    return expect(request(url)).resolves.toEqual({
+      data: {
+        completed: false,
+        id: 1,
+        title: "delectus aut autem",
+        userId: 1
+      },
+      statusCode: 200,
+      statusMessage: "OK"
+    });
   });
 });
