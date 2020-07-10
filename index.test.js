@@ -40,7 +40,10 @@ describe("Execute Promises Sequentially", () => {
 describe("Make a HTTP Request", () => {
   it("Should execute the request to API", () => {
     const url = 'https://jsonplaceholder.typicode.com/todos/1'
-    return expect(request(url)).resolves.toEqual({
+    const options = {
+      method: 'get'
+    }
+    return expect(request(url, options)).resolves.toEqual({
       data: {
         completed: false,
         id: 1,

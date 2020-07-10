@@ -19,26 +19,30 @@ async function executeSequentially(promises) {
   return responses
 }
 
-function request(url) {
+function request(url, options, data) {
   return new Promise((resolve, reject) => {
-    const lib = url.startsWith('https') ? https : http;
+    const json = JSON.stringify(data) || ''
+    options.headers = {
+      ...options.headers,
+      'Content-Length': json.length
+    }
 
-    const request = lib.get(url, (response) => {
-      if (response.statusCode < 200 || response.statusCode > 299) {
-        reject(new Error('Failed with status code: ' + response.statusCode));
-      }
+    const library = url.startsWith('https') ? https : http
+    const request = library.request(url, options, response => {
+      const body = []
+      response.on('data', chunk => body.push(chunk))
+      response.on('end', () =>
+        resolve({
+          statusCode: response.statusCode,
+          statusMessage: response.statusMessage,
+          data: body.length > 0 ? JSON.parse(body.join()) : ''
+        })
+      )
+    })
 
-      const body = [];
-      response.on('data', (chunk) => body.push(chunk));
-
-      response.on('end', () => resolve({
-        statusCode: response.statusCode,
-        statusMessage: response.statusMessage,
-        data: JSON.parse(body.join(''))
-      }));
-    });
-
-    request.on('error', (err) => reject(err))
+    request.write(json)
+    request.on('error', reject)
+    request.end()
   })
 }
 
