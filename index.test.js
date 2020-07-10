@@ -1,4 +1,9 @@
-const { isValidName, calcAge, executeSequentially, request } = require("./index");
+const {
+  isValidName,
+  calcAge,
+  executeSequentially,
+  request
+} = require("./index");
 
 function asyncTimeout(delay) {
   return () =>
@@ -39,10 +44,10 @@ describe("Execute Promises Sequentially", () => {
 
 describe("Make a HTTP Request", () => {
   it("Should execute the request to API", () => {
-    const url = 'https://jsonplaceholder.typicode.com/todos/1'
+    const url = "https://jsonplaceholder.typicode.com/todos/1";
     const options = {
-      method: 'get'
-    }
+      method: "get"
+    };
     return expect(request(url, options)).resolves.toEqual({
       data: {
         completed: false,

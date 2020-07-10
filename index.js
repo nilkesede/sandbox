@@ -1,5 +1,5 @@
-const http = require('http')
-const https = require('https')
+const http = require("http");
+const https = require("https");
 
 function isValidName(name) {
   return /^[0-9A-zÀ-ú ]+$/gm.test(name);
@@ -10,40 +10,40 @@ function calcAge(date) {
 }
 
 async function executeSequentially(promises) {
-  const responses = []
+  const responses = [];
 
   for await (const promise of promises) {
-    responses.push(await promise())
+    responses.push(await promise());
   }
 
-  return responses
+  return responses;
 }
 
 function request(url, options, data) {
   return new Promise((resolve, reject) => {
-    const json = JSON.stringify(data) || ''
+    const json = JSON.stringify(data) || "";
     options.headers = {
       ...options.headers,
-      'Content-Length': json.length
-    }
+      "Content-Length": json.length
+    };
 
-    const library = url.startsWith('https') ? https : http
+    const library = url.startsWith("https") ? https : http;
     const request = library.request(url, options, response => {
-      const body = []
-      response.on('data', chunk => body.push(chunk))
-      response.on('end', () =>
+      const body = [];
+      response.on("data", chunk => body.push(chunk));
+      response.on("end", () =>
         resolve({
           statusCode: response.statusCode,
           statusMessage: response.statusMessage,
-          data: body.length > 0 ? JSON.parse(body.join()) : ''
+          data: body.length > 0 ? JSON.parse(body.join()) : ""
         })
-      )
-    })
+      );
+    });
 
-    request.write(json)
-    request.on('error', reject)
-    request.end()
-  })
+    request.write(json);
+    request.on("error", reject);
+    request.end();
+  });
 }
 
 module.exports = {
