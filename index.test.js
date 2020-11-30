@@ -7,7 +7,7 @@ const {
 
 function asyncTimeout(delay) {
   return () =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       setTimeout(() => resolve(delay), delay);
     });
 }

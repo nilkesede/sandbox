@@ -22,15 +22,10 @@ async function executeSequentially(promises) {
 function request(url, options, data) {
   return new Promise((resolve, reject) => {
     const json = JSON.stringify(data) || "";
-    options.headers = {
-      ...options.headers,
-      "Content-Length": json.length
-    };
-
     const library = url.startsWith("https") ? https : http;
-    const request = library.request(url, options, response => {
+    const request = library.request(url, options, (response) => {
       const body = [];
-      response.on("data", chunk => body.push(chunk));
+      response.on("data", (chunk) => body.push(chunk));
       response.on("end", () =>
         resolve({
           statusCode: response.statusCode,
