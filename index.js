@@ -21,7 +21,7 @@ async function executeSequentially(promises) {
 
 function request(url, options, data) {
   return new Promise((resolve, reject) => {
-    const json = JSON.stringify(data) || "";
+    const payload = JSON.stringify(data) || "";
     const library = url.startsWith("https") ? https : http;
     const request = library.request(url, options, (response) => {
       const body = [];
@@ -35,7 +35,7 @@ function request(url, options, data) {
       );
     });
 
-    request.write(json);
+    request.write(payload);
     request.on("error", reject);
     request.end();
   });

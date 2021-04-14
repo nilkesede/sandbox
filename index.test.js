@@ -25,14 +25,14 @@ describe("Name validation", () => {
 });
 
 describe("Age calculator", () => {
-  it("Should show the rigth age", () => {
+  it("Should show the right age", () => {
     const age = new Date().getFullYear() - 1994;
     expect(calcAge(new Date("1994"))).toEqual(age);
   });
 });
 
 describe("Execute Promises Sequentially", () => {
-  it("Should execute in the rigth order", () => {
+  it("Should execute in the right order", () => {
     expect.assertions(1);
 
     const times = [10, 20, 30];
