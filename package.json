@@ -11,7 +11,7 @@
     "moment": "2.29.1"
   },
   "devDependencies": {
-    "@types/jest": "26.0.15"
+    "@types/jest": "26.0.22"
   },
   "engines": {
     "node": ">=14"
