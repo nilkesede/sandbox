@@ -19,8 +19,8 @@ describe("Name validation", () => {
   });
 
   it("Should not be a valid name", () => {
-    expect(isValidName("Nil ~/ Késede")).toBeFalsy();
-    expect(isValidName("Nil Késede LTDA.")).toBeFalsy();
+    expect(isValidName("It's not a valid Nil ~/ Késede name")).toBeFalsy();
+    expect(isValidName("Nil Company Késede LTDA.")).toBeFalsy();
   });
 });
 
