@@ -13,14 +13,21 @@ function asyncTimeout(delay) {
 }
 
 describe("Name validation", () => {
-  it("Should be a valid name", () => {
-    expect(isValidName("Nil Késede")).toBeTruthy();
-    expect(isValidName("Nil Késede Tçãè1312")).toBeTruthy();
-  });
-
-  it("Should not be a valid name", () => {
-    expect(isValidName("It's not a valid Nil ~/ Késede name")).toBeFalsy();
-    expect(isValidName("Nil Company Késede LTDA.")).toBeFalsy();
+  it("Should tell if is a valid name", () => {
+    const validNames = [
+      "Nil Késede",
+      "Nil Késede Tçãè1312",
+    ]
+    const invalidNames = [
+      "It's not a valid Nil ~/ Késede name",
+      "Nil Company Késede LTDA.",
+    ]
+    for (const name of validNames) {
+      expect(isValidName(name)).toBeTruthy();
+    }
+    for (const name of invalidNames) {
+      expect(isValidName(name)).toBeFalsy();
+    }
   });
 });
 
